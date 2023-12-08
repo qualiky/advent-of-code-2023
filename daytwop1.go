@@ -1,7 +1,14 @@
 package main
 
-/**
-type CubeColors struct {
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type CubeColor struct {
 	rawString string
 	green     int
 	blue      int
@@ -9,11 +16,11 @@ type CubeColors struct {
 	valid     bool
 }
 
-const finalRedCount int = 12
-const finalGreenCount int = 13
-const finalBlueCount int = 14
-
 func D2P1() {
+
+	const finalRedCount int = 12
+	const finalGreenCount int = 13
+	const finalBlueCount int = 14
 
 	sum := 0
 
@@ -49,25 +56,25 @@ func D2P1() {
 	// checking the number of strings
 	fmt.Println("Number of strings: ", len(cubeStoreArray))
 
-	// the cube color details will be stored in a map[int]CubeColors
-	var cubeMaps map[int]CubeColors = make(map[int]CubeColors)
+	// the cube color details will be stored in a map[int]CubeColor
+	var cubeMaps map[int]CubeColor = make(map[int]CubeColor)
 
 	for id, str := range cubeStoreArray {
 		// split the original string
 		parsedGameDetail := strings.Split(str, ":")[1]
 		// fmt.Printf("\n\nParsed game %d detail: %s\n\n", id, parsedGameDetail)
 
-		cubeMaps[id+1] = CubeColors{
+		cubeMaps[id+1] = CubeColor{
 			rawString: parsedGameDetail,
 			green:     0,
 			red:       0,
 			blue:      0,
 		}
 
-		cubeColors := strings.Split(strings.Trim(parsedGameDetail, " "), "; ")
+		cubeColor := strings.Split(strings.Trim(parsedGameDetail, " "), "; ")
 
 		fmt.Printf("For game %d: \n\n", id)
-		for individualPickIndex, allColors := range cubeColors {
+		for individualPickIndex, allColors := range cubeColor {
 			individualColorPick := strings.Split(strings.Trim(allColors, " "), ",")
 			fmt.Printf("Pick number %d:\n", individualPickIndex)
 			for _, colorCountName := range individualColorPick {
@@ -128,4 +135,3 @@ func D2P1() {
 
 	fmt.Printf("Sum: %d\n", sum)
 }
-**/
