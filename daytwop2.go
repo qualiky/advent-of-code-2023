@@ -1,6 +1,13 @@
 package main
 
-/**
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
 type CubeColors struct {
 	rawString string
 	green     int
@@ -13,9 +20,7 @@ const finalRedCount int = 12
 const finalGreenCount int = 13
 const finalBlueCount int = 14
 
-func D2P1() {
-
-	sum := 0
+func D2P2() {
 
 	// opening the file
 	file, err := os.Open("supportfiles/cubes.txt")
@@ -51,6 +56,8 @@ func D2P1() {
 
 	// the cube color details will be stored in a map[int]CubeColors
 	var cubeMaps map[int]CubeColors = make(map[int]CubeColors)
+
+	cubeSum := 0
 
 	for id, str := range cubeStoreArray {
 		// split the original string
@@ -115,17 +122,24 @@ func D2P1() {
 
 	for id, cubeMap := range cubeMaps {
 		fmt.Printf("Key is %d, value is %d green, %d red, %d blue\n\n", id, cubeMap.green, cubeMap.red, cubeMap.blue)
-		if cubeMap.green > finalGreenCount || cubeMap.red > finalRedCount || cubeMap.blue > finalBlueCount {
-			if entry, ok := cubeMaps[id]; ok {
-				entry.valid = false
-				fmt.Printf("Id %d is invalid!\n", id)
-				cubeMaps[id] = entry
-			}
-		} else {
-			sum += id
+		getRedVal := cubeMap.red
+		getBlueVal := cubeMap.blue
+		getGreenVal := cubeMap.green
+
+		if getRedVal == 0 {
+			getRedVal = 1
 		}
+
+		if getBlueVal == 0 {
+			getBlueVal = 1
+		}
+
+		if getGreenVal == 0 {
+			getGreenVal = 1
+		}
+
+		cubeSum += getRedVal * getBlueVal * getGreenVal
 	}
 
-	fmt.Printf("Sum: %d\n", sum)
+	fmt.Printf("Sum: %d\n", cubeSum)
 }
-**/
